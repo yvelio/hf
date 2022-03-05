@@ -1,5 +1,5 @@
 package com.yvelio.histories;
 
 public enum HandSite {
-	POKERSTARS, POKERGENIUS
+	UNKNOWN, POKERSTARS, POKERGENIUS
 }
