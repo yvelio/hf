@@ -1,22 +1,20 @@
-package com.yvelio.histories;
+package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Hand {
-	public Long handNumber;
-	public String tableName;
-	public HandSite handSite;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	public Hand() {
-
-	}
-
-	public Hand(Long handNumber, String tableName, HandSite handSite) {
-		this.handNumber = handNumber;
-		this.tableName = tableName;
-		this.handSite = handSite;
-	}
-
+	private Long handNumber;
+	private String tableName;
+	private HandSite handSite;
 
 	@Override
 	public boolean equals(Object o) {
@@ -27,12 +25,14 @@ public class Hand {
 				tableName.equals(hand.tableName);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(handNumber,tableName);
+	public Long getId() {
+		return id;
 	}
 
-
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getHandNumber() {
 		return handNumber;
 	}
@@ -56,6 +56,12 @@ public class Hand {
 	public void setHandSite(HandSite handSite) {
 		this.handSite = handSite;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(handNumber,tableName);
+	}
+
 
 
 

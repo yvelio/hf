@@ -3,37 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yvelio</groupId>
+
+	<parent>
+		<groupId>com.yvelio</groupId>
+		<artifactId>nlhe-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>nlhe-history-service</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 
-	<properties>
-		<compiler-plugin.version>3.8.1</compiler-plugin.version>
-		<maven.compiler.parameters>true</maven.compiler.parameters>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>2.1.3.Final</quarkus.platform.version>
-		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>${quarkus.platform.group-id}</groupId>
-				<artifactId>${quarkus.platform.artifact-id}</artifactId>
-				<version>${quarkus.platform.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
 	<dependencies>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -41,19 +20,38 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm-panache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jdbc-postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-kubernetes</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.quarkus</groupId> -->
-<!-- 			<artifactId>quarkus-minikube</artifactId> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-minikube</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-container-image-jib</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-test-h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jdbc-h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -61,14 +59,7 @@
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- This dependency is a workaround until the issue is resolved: https://github.com/quarkusio/quarkus/issues/19888 -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -105,7 +96,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
 		<profile>
 			<id>native</id>
@@ -135,12 +125,63 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<!-- Automatically start PostgreSQL for integration testing - requires 
+							Docker -->
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker-plugin.version}</version>
+						<configuration>
+							<skip>${skipTests}</skip>
+							<images>
+								<image>
+									<name>postgres:10.5</name>
+									<alias>postgresql</alias>
+									<run>
+										<env>
+											<POSTGRES_USER>quarkus_banking</POSTGRES_USER>
+											<POSTGRES_PASSWORD>quarkus_banking</POSTGRES_PASSWORD>
+											<POSTGRES_DB>quarkus_banking</POSTGRES_DB>
+										</env>
+										<ports>
+											<port>5432:5432</port>
+										</ports>
+										<log>
+											<prefix>PostgreSQL: </prefix>
+											<date>default</date>
+											<color>cyan</color>
+										</log>
+										<wait>
+											<log>^.*?\b(CREATE DATABASE)\b.*</log>
+											<time>10000</time>
+										</wait>
+									</run>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<id>docker-start</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>docker-stop</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 			<properties>
 				<quarkus.package.type>native</quarkus.package.type>
 			</properties>
 		</profile>
-
 	</profiles>
 </project>
