@@ -20,7 +20,7 @@ spec:
               protocol: TCP
           env:
             - name: POSTGRES_DB
-              value: quarkus_banking
+              value: com_yvelio_history_db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
