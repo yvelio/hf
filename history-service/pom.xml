@@ -139,9 +139,9 @@
 									<alias>postgresql</alias>
 									<run>
 										<env>
-											<POSTGRES_USER>quarkus_banking</POSTGRES_USER>
-											<POSTGRES_PASSWORD>quarkus_banking</POSTGRES_PASSWORD>
-											<POSTGRES_DB>quarkus_banking</POSTGRES_DB>
+											<POSTGRES_USER>com_yvelio_history</POSTGRES_USER>
+											<POSTGRES_PASSWORD>com_yvelio_history</POSTGRES_PASSWORD>
+											<POSTGRES_DB>com_yvelio_history_db</POSTGRES_DB>
 										</env>
 										<ports>
 											<port>5432:5432</port>
