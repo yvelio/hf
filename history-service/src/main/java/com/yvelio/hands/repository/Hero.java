@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yvelio.enums.PokerSite;
 
 /**
@@ -28,6 +29,7 @@ public class Hero {
 	private String playerName;
 	private PokerSite site;
 
+	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
 	private Set<Hand> hands  = new HashSet<>();
 
@@ -88,5 +90,13 @@ public class Hero {
 	public int hashCode() {
 		return Objects.hash(playerName, site);
 	}
+
+	@Override
+	public String toString() {
+		return "Hero [heroId=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()
+				+ ", history=" + history + "]";
+	}
+	
+	
 
 }

@@ -27,6 +27,7 @@ public class Hand {
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "hero_id") 
 	@JsonBackReference
+//	@JsonbTransient
 	private Hero hero;
 	
 	@OneToOne(mappedBy = "hero", cascade = CascadeType.ALL)
@@ -94,4 +95,12 @@ public class Hand {
 	public int hashCode() {
 		return Objects.hash(handNumber,tableName);
 	}
+
+	@Override
+	public String toString() {
+		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
+				+ ", hero=" + hero.getPlayerName() + ", history=" + history + "]";
+	}
+	
+	
 }
