@@ -95,6 +95,7 @@ public class HeroResourceTest {
 				.extract()
 				.as(Hero.class);
 
+		
 		newHero.setHeroId(returnedHero.getHeroId());
 
 		assertThat(returnedHero, notNullValue());

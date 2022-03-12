@@ -48,7 +48,7 @@ public class HeroResource {
 		return hero;
 	}
 
-	@PostMapping
+	@PostMapping(value="/new")
 	@Transactional
 	public Response createHero(@RequestBody Hero hero) {
 		if (hero.getHeroId() != null) {
