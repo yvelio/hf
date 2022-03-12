@@ -25,38 +25,41 @@ import javax.ws.rs.core.Response;
  * @author anlev
  *
  */
-@Path("/hands")
+@Path("/heros")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class HandResource {
+public class HeroResource {
 	@Inject
-	HandRepository handRepository;
+	HeroRepository heroRepository;
 
 	@GET
-	public List<Hand> allHands() {
-		return handRepository.listAll();
+	public List<Hero> allHeros() {
+		return heroRepository.listAll();
 	}
 
 	@GET
-	@Path("/{handNumber}")
-	public Hand getHand(@PathParam("handNumber") Long handNumber) {
-		Hand hand = handRepository.findByHandNumber(handNumber);
+	@Path("/{playerName}")
+	public Hero getHero(@PathParam("playerName") String playerName) {
+		Hero hero = heroRepository.findByPlayerName(playerName);
 
-		if (hand == null) {
-			throw new WebApplicationException("Hand with " + handNumber + " does not exist.", 404);
+		if (hero == null) {
+			throw new WebApplicationException("Hero with " + playerName + " does not exist.", 404);
 		}
 
-		return hand;
+		return hero;
 	}
 
 	@POST
 	@Transactional
-	public Response createHand(Hand hand) {
-//		if (hand.getHandId() != null) {
-//			throw new WebApplicationException("Id was invalidly set on request.", 400);
-//		}
+	public Response createHero(Hero hero) {
+		if (hero.getHeroId() != null) {
+			throw new WebApplicationException("Id was invalidly set on request.", 400);
+		}
 
-		handRepository.persist(hand);
-		return Response.status(201).entity(hand).build();
+		System.err.println("About to save new hero: "+hero.getPlayerName()+"/"+hero.getSite());
+		System.err.println("with hands: "+hero.getHands().size());
+		
+		heroRepository.persist(hero);
+		return Response.status(201).entity(hero).build();
 	}
 }

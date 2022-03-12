@@ -2,37 +2,45 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.yvelio.enums.PokerSite;
 
 @Entity
 public class Hand {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long handId;
 
 	private Long handNumber;
 	private String tableName;
-	private HandSite handSite;
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Hand hand = (Hand) o;
-		return handNumber.equals(hand.handNumber) &&
-				tableName.equals(hand.tableName);
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private PokerSite site;
 	
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "hero_id") 
+	@JsonBackReference
+	private Hero hero;
+	
+	@OneToOne(mappedBy = "hero", cascade = CascadeType.ALL)
+	private History history;
+
+    
+	public Long getHandId() {
+		return handId;
+	}
+
+	public void setHandId(Long handId) {
+		this.handId = handId;
+	}
+
 	public Long getHandNumber() {
 		return handNumber;
 	}
@@ -49,20 +57,41 @@ public class Hand {
 		this.tableName = tableName;
 	}
 
-	public HandSite getHandSite() {
-		return handSite;
+	public PokerSite getSite() {
+		return site;
 	}
 
-	public void setHandSite(HandSite handSite) {
-		this.handSite = handSite;
+	public void setSite(PokerSite site) {
+		this.site = site;
 	}
 
+	public Hero getHero() {
+		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
+	public History getHistory() {
+		return history;
+	}
+
+	public void setHistory(History history) {
+		this.history = history;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Hand hand = (Hand) o;
+		return handNumber.equals(hand.getHandNumber()) &&
+				tableName.equals(hand.getTableName()) && site.equals(hand.getSite());
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(handNumber,tableName);
 	}
-
-
-
-
 }
