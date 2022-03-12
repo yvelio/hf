@@ -82,7 +82,6 @@ public class HeroResourceTest {
 		newHand2.setTableName("Test table");
 		newHand2.setSite(PokerSite.POKERGENIUS);
 
-
 		newHero.addToHands(newHand1);
 		newHero.addToHands(newHand2);
 

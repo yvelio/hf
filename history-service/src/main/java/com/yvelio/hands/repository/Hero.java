@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,9 +33,6 @@ public class Hero {
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
 	private Set<Hand> hands  = new HashSet<>();
-
-	@OneToOne(mappedBy = "hero", cascade = CascadeType.ALL)
-	private History history;
 
 	public Set<Hand> getHands() {
 		return hands;
@@ -70,13 +68,6 @@ public class Hero {
 		this.site = site;
 	}
 
-	public History getHistory() {
-		return history;
-	}
-
-	public void setHistory(History history) {
-		this.history = history;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -93,8 +84,7 @@ public class Hero {
 
 	@Override
 	public String toString() {
-		return "Hero [heroId=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()
-				+ ", history=" + history + "]";
+		return "Hero [heroId=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
 	}
 	
 	

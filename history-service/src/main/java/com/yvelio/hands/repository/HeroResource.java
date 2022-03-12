@@ -4,17 +4,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.yvelio.enums.PokerSite;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Represents a log file from hero's local directory.
@@ -27,22 +25,21 @@ import com.yvelio.enums.PokerSite;
  * @author anlev
  *
  */
-@Path("/heros")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping(path = "/heros")
 public class HeroResource {
 	@Inject
 	HeroRepository heroRepository;
 
-	@GET
+	@GetMapping
 	public List<Hero> allHeros() {
-		return heroRepository.listAll();
+		return heroRepository.findAll();// listAll();
 	}
 
-	@GET
-	@Path("/{playerName}")
+	@GetMapping("/{playerName}")
+//	@Path("/{playerName}")
 	public Hero getHero(@PathParam("playerName") String playerName) {
-		Hero hero = heroRepository.findByPlayerName(playerName);
+		Hero hero = heroRepository.findAll().stream().filter( h -> h.getPlayerName().equals(playerName)).findFirst().get();
 
 		if (hero == null) {
 			throw new WebApplicationException("Hero with " + playerName + " does not exist.", 404);
@@ -51,9 +48,9 @@ public class HeroResource {
 		return hero;
 	}
 
-	@POST
+	@PostMapping
 	@Transactional
-	public Response createHero(Hero hero) {
+	public Response createHero(@RequestBody Hero hero) {
 		if (hero.getHeroId() != null) {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
@@ -64,7 +61,8 @@ public class HeroResource {
 		System.err.println(hero);
 		
 		
-		heroRepository.persist(hero);
+//		heroRepository.persist(hero);
+		heroRepository.save(hero);
 		return Response.status(201).entity(hero).build();
 	}
 }

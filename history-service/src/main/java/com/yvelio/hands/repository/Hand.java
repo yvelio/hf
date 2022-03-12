@@ -2,6 +2,7 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,9 +31,6 @@ public class Hand {
 //	@JsonbTransient
 	private Hero hero;
 	
-	@OneToOne(mappedBy = "hero", cascade = CascadeType.ALL)
-	private History history;
-
     
 	public Long getHandId() {
 		return handId;
@@ -74,13 +72,6 @@ public class Hand {
 		this.hero = hero;
 	}
 
-	public History getHistory() {
-		return history;
-	}
-
-	public void setHistory(History history) {
-		this.history = history;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -99,7 +90,7 @@ public class Hand {
 	@Override
 	public String toString() {
 		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
-				+ ", hero=" + hero.getPlayerName() + ", history=" + history + "]";
+				+ ", hero=" + hero.getPlayerName() + "]";
 	}
 	
 	
