@@ -4,13 +4,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yvelio.enums.PokerSite;
@@ -37,6 +35,11 @@ public class Hero {
 	public Set<Hand> getHands() {
 		return hands;
 	}
+
+	public void setHands(Set<Hand> hands) {
+		this.hands = hands;
+	}
+
 
 	public void addToHands(Hand hand) {
 		this.hands.add(hand);

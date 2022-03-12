@@ -1,11 +1,13 @@
 package com.yvelio.hands.repository;
 
+import javax.enterprise.context.ApplicationScoped;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-@Repository
-//@Transactional(readOnly = true)
-public interface HeroRepository extends JpaRepository<Hero, Long> {
+@ApplicationScoped
+public class HeroRepository implements PanacheRepository<Hero> {
 
+	public Hero findByPlayerName(String playerName) {
+		return find("playerName = ?1", playerName).firstResult();
+	}
 }

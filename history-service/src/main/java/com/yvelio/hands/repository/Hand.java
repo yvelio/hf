@@ -2,15 +2,12 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.yvelio.enums.PokerSite;
@@ -28,7 +25,6 @@ public class Hand {
 	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "hero_id") 
 	@JsonBackReference
-//	@JsonbTransient
 	private Hero hero;
 	
     
