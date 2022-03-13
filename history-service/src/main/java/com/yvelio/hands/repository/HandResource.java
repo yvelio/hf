@@ -14,6 +14,8 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Represents a log file from hero's local directory.
@@ -26,9 +28,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author anlev
  *
  */
-@Path("/hands")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping(path = "/hands")
 public class HandResource {
 	@Inject
 	HandRepository handRepository;
@@ -58,7 +59,6 @@ public class HandResource {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 
-//		handRepository.persist(hand);
 		handRepository.save(hand);
 		return Response.status(201).entity(hand).build();
 	}

@@ -20,7 +20,6 @@ public class Hand {
     @GeneratedValue
 	private Long handId;
    
-    
 	private Long handNumber;
 	private String tableName;
 	private PokerSite site;
