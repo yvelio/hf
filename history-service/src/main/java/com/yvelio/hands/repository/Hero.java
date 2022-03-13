@@ -23,7 +23,7 @@ import com.yvelio.enums.PokerSite;
 public class Hero {
 	@Id
 	@GeneratedValue
-	private Long heroId;
+	private Long id;
 
 	private String playerName;
 	private PokerSite site;
@@ -47,12 +47,12 @@ public class Hero {
 	}
 	
 	
-	public Long getHeroId() {
-		return heroId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getPlayerName() {
@@ -87,7 +87,7 @@ public class Hero {
 
 	@Override
 	public String toString() {
-		return "Hero [heroId=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
+		return "Hero [id=" + id + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
 	}
 	
 	

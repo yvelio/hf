@@ -10,7 +10,7 @@ pipeline {
       stage('Build maven ') {
             steps { 
                     sh 'pwd'      
-                    sh 'mvn  clean install'
+                    sh 'mvn  clean install  -DskipTests'
             }
         }
            

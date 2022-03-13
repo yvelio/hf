@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -15,23 +16,23 @@ import com.yvelio.enums.PokerSite;
 public class Hand {
 	@Id
 	@GeneratedValue
-	private Long handId;
+	private Long id;
 
 	private Long handNumber;
 	private String tableName;
 	private PokerSite site;
 	
-	@ManyToOne(fetch = FetchType.LAZY) 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="hero_id")
 	@JsonBackReference
 	private Hero hero;
-	
-    
-	public Long getHandId() {
-		return handId;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setHandId(Long handId) {
-		this.handId = handId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getHandNumber() {
@@ -83,7 +84,7 @@ public class Hand {
 
 	@Override
 	public String toString() {
-		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
+		return "Hand [handId=" + id + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
 				+ ", hero=" + hero.getPlayerName() + "]";
 	}
 	
