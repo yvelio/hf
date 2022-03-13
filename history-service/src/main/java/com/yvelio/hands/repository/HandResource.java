@@ -5,14 +5,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Represents a log file from hero's local directory.
@@ -32,13 +33,14 @@ public class HandResource {
 	@Inject
 	HandRepository handRepository;
 
-	@GET
+	@GetMapping() 
+	@Transactional
 	public List<Hand> allHands() {
 		return handRepository.findAll();
 	}
 
-	@GET
-	@Path("/{handNumber}")
+	@GetMapping("{handNumber}") 
+	@Transactional
 	public Hand getHand(@PathParam("handNumber") Long handNumber) {
 		Hand hand = handRepository.findByHandNumber(handNumber);
 
@@ -49,7 +51,7 @@ public class HandResource {
 		return hand;
 	}
 
-	@POST
+	@PostMapping() 
 	@Transactional
 	public Response createHand(Hand hand) {
 		if (hand.getHandId() != null) {
