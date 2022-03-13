@@ -2,11 +2,11 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,18 +20,16 @@ public class Hand {
     @Column(name="hand_id")
     @GeneratedValue
 	private Long handId;
-    
-    @Column(name="hero_id")
-    private Long heroId;
-    
+   
     
 	private Long handNumber;
 	private String tableName;
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="hero_id")
+	@JoinColumn(name="hero_id")
 	@JsonBackReference
+	@JsonbTransient
 	private Hero hero;
 
 
@@ -42,15 +40,7 @@ public class Hand {
 	public void setHandId(Long handId) {
 		this.handId = handId;
 	}
-	
 
-	public Long getHeroId() {
-		return heroId;
-	}
-
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
-	}
 
 	public Long getHandNumber() {
 		return handNumber;
