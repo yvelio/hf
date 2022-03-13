@@ -1,6 +1,7 @@
 package com.yvelio.hands.repository;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
@@ -36,6 +37,17 @@ public class HeroResource {
 	@GetMapping
 	public List<Hero> allHeros() {
 		return heroRepository.findAll();
+	}
+	
+	@GetMapping("/{playerName}/hands") 
+	public Set<Hand> getHands(@PathVariable("playerName") String playerName) {
+		Hero hero = heroRepository.findByPlayerName(playerName);
+
+		if (hero == null) {
+			throw new WebApplicationException("Hero with " + playerName + " does not exist.", 404);
+		}
+
+		return hero.getHands();
 	}
 
 	@GetMapping("/{playerName}") 
