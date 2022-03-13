@@ -18,15 +18,19 @@ import com.yvelio.enums.PokerSite;
 public class Hand {
     @Id
     @Column(name="hand_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
 	private Long handId;
-
+    
+    @Column(name="hero_id")
+    private Long heroId;
+    
+    
 	private Long handNumber;
 	private String tableName;
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="hero_id")
+//	@JoinColumn(name="hero_id")
 	@JsonBackReference
 	private Hero hero;
 
@@ -37,6 +41,15 @@ public class Hand {
 
 	public void setHandId(Long handId) {
 		this.handId = handId;
+	}
+	
+
+	public Long getHeroId() {
+		return heroId;
+	}
+
+	public void setHeroId(Long heroId) {
+		this.heroId = heroId;
 	}
 
 	public Long getHandNumber() {

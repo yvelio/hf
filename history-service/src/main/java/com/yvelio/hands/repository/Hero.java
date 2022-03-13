@@ -26,17 +26,14 @@ import com.yvelio.enums.PokerSite;
 @Entity
 public class Hero {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name="hero_id")
 	private Long heroId;
 
 	private String playerName;
 	private PokerSite site;
 
-//	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
-//    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-//    @JoinColumn(name="hand_id")
 	@JsonManagedReference
 	private Set<Hand> hands  = new HashSet<>();
 
