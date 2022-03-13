@@ -39,7 +39,8 @@ public class HeroResource {
 	}
 
 	@GetMapping("/{playerName}") 
-	@Transactional
+	//TODO: no session and settings disallow loading outside the Session
+	//@Transactional
 	public Hero getHero(@PathVariable("playerName") String playerName) {
 		Hero hero = heroRepository.findByPlayerName(playerName);
 
