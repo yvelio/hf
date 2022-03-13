@@ -23,7 +23,7 @@ public class Hand {
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "hero_id") 
+	@JoinColumn(name = "heroid") 
 	@JsonBackReference
 	private Hero hero;
 	

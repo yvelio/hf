@@ -14,8 +14,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.yvelio.enums.PokerSite;
-
 /**
  * Represents a log file from hero's local directory.
  * 
@@ -57,13 +55,6 @@ public class HeroResource {
 		if (hero.getHeroId() != null) {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
-
-
-		
-		System.err.println("About to save new hero: "+hero.getPlayerName()+"/"+hero.getSite());
-		System.err.println("with hands: "+hero.getHands().size());
-		System.err.println(hero);
-		
 		
 		heroRepository.persist(hero);
 		return Response.status(201).entity(hero).build();

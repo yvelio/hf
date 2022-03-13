@@ -52,9 +52,9 @@ public class HandResource {
 	@POST
 	@Transactional
 	public Response createHand(Hand hand) {
-//		if (hand.getHandId() != null) {
-//			throw new WebApplicationException("Id was invalidly set on request.", 400);
-//		}
+		if (hand.getHandId() != null) {
+			throw new WebApplicationException("Id was invalidly set on request.", 400);
+		}
 
 		handRepository.persist(hand);
 		return Response.status(201).entity(hand).build();
