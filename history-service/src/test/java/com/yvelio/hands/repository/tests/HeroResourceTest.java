@@ -96,7 +96,7 @@ public class HeroResourceTest {
 				.as(Hero.class);
 
 		
-		newHero.setId(returnedHero.getId());
+		newHero.setHeroId(returnedHero.getHeroId());
 
 		assertThat(returnedHero, notNullValue());
 		assertThat(returnedHero, equalTo(newHero));

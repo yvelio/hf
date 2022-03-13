@@ -52,7 +52,7 @@ public class HeroResource {
 	@POST
 	@Transactional
 	public Response createHero(Hero hero) {
-		if (hero.getId() != null) {
+		if (hero.getHeroId() != null) {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 		

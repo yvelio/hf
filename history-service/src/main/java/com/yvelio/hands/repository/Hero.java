@@ -5,9 +5,13 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,15 +25,19 @@ import com.yvelio.enums.PokerSite;
  */
 @Entity
 public class Hero {
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="hero_id")
+	private Long heroId;
 
 	private String playerName;
 	private PokerSite site;
 
-	@JsonManagedReference
+//	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
+//    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+//    @JoinColumn(name="hand_id")
+	@JsonManagedReference
 	private Set<Hand> hands  = new HashSet<>();
 
 	public Set<Hand> getHands() {
@@ -45,14 +53,14 @@ public class Hero {
 		this.hands.add(hand);
 		hand.setHero(this);
 	}
-	
-	
-	public Long getId() {
-		return id;
+
+
+	public Long getHeroId() {
+		return heroId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setHeroId(Long heroId) {
+		this.heroId = heroId;
 	}
 
 	public String getPlayerName() {
@@ -87,7 +95,7 @@ public class Hero {
 
 	@Override
 	public String toString() {
-		return "Hero [id=" + id + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
+		return "Hero [id=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
 	}
 	
 	

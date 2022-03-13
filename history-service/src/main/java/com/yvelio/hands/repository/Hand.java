@@ -2,9 +2,11 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,25 +16,27 @@ import com.yvelio.enums.PokerSite;
 
 @Entity
 public class Hand {
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @Column(name="hand_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long handId;
 
 	private Long handNumber;
 	private String tableName;
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="hero_id")
+	@JoinColumn(name="hero_id")
 	@JsonBackReference
 	private Hero hero;
 
-	public Long getId() {
-		return id;
+
+	public Long getHandId() {
+		return handId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setHandId(Long handId) {
+		this.handId = handId;
 	}
 
 	public Long getHandNumber() {
@@ -84,7 +88,7 @@ public class Hand {
 
 	@Override
 	public String toString() {
-		return "Hand [handId=" + id + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
+		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
 				+ ", hero=" + hero.getPlayerName() + "]";
 	}
 	

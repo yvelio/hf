@@ -52,7 +52,7 @@ public class HandResource {
 	@POST
 	@Transactional
 	public Response createHand(Hand hand) {
-		if (hand.getId() != null) {
+		if (hand.getHandId() != null) {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 
