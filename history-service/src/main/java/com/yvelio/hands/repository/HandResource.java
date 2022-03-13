@@ -35,13 +35,11 @@ public class HandResource {
 	HandRepository handRepository;
 
 	@GetMapping() 
-	@Transactional
 	public List<Hand> allHands() {
 		return handRepository.findAll();
 	}
 
-	@GetMapping("{handNumber}") 
-	@Transactional
+	@GetMapping("/{handNumber}") 
 	public Hand getHand(@PathParam("handNumber") Long handNumber) {
 		Hand hand = handRepository.findByHandNumber(handNumber);
 
