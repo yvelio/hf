@@ -34,7 +34,7 @@ public class Hero {
 	private PokerSite site;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
-	@JsonManagedReference
+//	@JsonManagedReference
 	private Set<Hand> hands  = new HashSet<>();
 
 	public Set<Hand> getHands() {

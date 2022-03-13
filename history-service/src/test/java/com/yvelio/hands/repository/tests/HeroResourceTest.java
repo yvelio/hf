@@ -88,7 +88,7 @@ public class HeroResourceTest {
 		Hero returnedHero =
 				given()
 				.contentType(ContentType.JSON)
-				.body(newHero)
+				.body(newHero).log().all()
 				.when().post("/heros")
 				.then()
 				.statusCode(201)

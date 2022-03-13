@@ -27,9 +27,9 @@ public class Hand {
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="hero_id")
-	@JsonBackReference
-	@JsonbTransient
+//	@JoinColumn(name="hero_id")
+//	@JsonBackReference
+//	@JsonbTransient
 	private Hero hero;
 
 
