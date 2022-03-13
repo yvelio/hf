@@ -4,15 +4,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Represents a log file from hero's local directory.
@@ -25,16 +25,15 @@ import javax.ws.rs.core.Response;
  * @author anlev
  *
  */
-@Path("/heros")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@RestController
+@RequestMapping(path = "/heros")
 public class HeroResource {
 	@Inject
 	HeroRepository heroRepository;
 
 	@GET
 	public List<Hero> allHeros() {
-		return heroRepository.listAll();
+		return heroRepository.findAll();
 	}
 
 	@GET
@@ -56,7 +55,8 @@ public class HeroResource {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 		
-		heroRepository.persist(hero);
+//		heroRepository.persist(hero);
+		heroRepository.save(hero);
 		return Response.status(201).entity(hero).build();
 	}
 }

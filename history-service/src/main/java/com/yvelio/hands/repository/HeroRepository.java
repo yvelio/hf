@@ -1,13 +1,9 @@
 package com.yvelio.hands.repository;
 
-import javax.enterprise.context.ApplicationScoped;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+public interface HeroRepository extends JpaRepository<Hero, Long> {
 
-@ApplicationScoped
-public class HeroRepository implements PanacheRepository<Hero> {
+	Hero findByPlayerName(String playerName);
 
-	public Hero findByPlayerName(String playerName) {
-		return find("playerName = ?1", playerName).firstResult();
-	}
 }

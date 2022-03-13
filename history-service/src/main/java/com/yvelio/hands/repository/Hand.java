@@ -2,7 +2,6 @@ package com.yvelio.hands.repository;
 
 import java.util.Objects;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,11 +26,9 @@ public class Hand {
 	private PokerSite site;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="hero_id")
-//	@JsonBackReference
-//	@JsonbTransient
+	@JoinColumn(name="hero_id")
+	@JsonBackReference
 	private Hero hero;
-
 
 	public Long getHandId() {
 		return handId;

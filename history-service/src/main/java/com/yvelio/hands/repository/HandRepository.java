@@ -1,13 +1,9 @@
 package com.yvelio.hands.repository;
 
-import javax.enterprise.context.ApplicationScoped;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+public interface HandRepository extends JpaRepository<Hand, Long> {
 
-@ApplicationScoped
-public class HandRepository implements PanacheRepository<Hand> {
+	Hand findByHandNumber(Long handNumber);
 
-	public Hand findByHandNumber(Long handNumber) {
-		return find("handNumber = ?1", handNumber).firstResult();
-	}
 }

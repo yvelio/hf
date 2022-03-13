@@ -34,7 +34,7 @@ public class HandResource {
 
 	@GET
 	public List<Hand> allHands() {
-		return handRepository.listAll();
+		return handRepository.findAll();
 	}
 
 	@GET
@@ -56,7 +56,8 @@ public class HandResource {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 
-		handRepository.persist(hand);
+//		handRepository.persist(hand);
+		handRepository.save(hand);
 		return Response.status(201).entity(hand).build();
 	}
 }

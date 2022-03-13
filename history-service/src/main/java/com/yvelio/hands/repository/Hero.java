@@ -7,11 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -34,7 +31,7 @@ public class Hero {
 	private PokerSite site;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
-//	@JsonManagedReference
+	@JsonManagedReference
 	private Set<Hand> hands  = new HashSet<>();
 
 	public Set<Hand> getHands() {
