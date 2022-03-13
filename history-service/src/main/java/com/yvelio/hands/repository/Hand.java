@@ -85,11 +85,11 @@ public class Hand {
 		return Objects.hash(handNumber,tableName);
 	}
 
-	@Override
-	public String toString() {
-		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
-				+ ", hero=" + hero.getPlayerName() + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Hand [handId=" + handId + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
+//				+ ", hero=" + hero.getPlayerName() + "]";
+//	}
 	
 	
 }
