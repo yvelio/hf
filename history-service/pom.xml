@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.yvelio.hf</groupId>
+		<groupId>com.holdemfactory</groupId>
 		<artifactId>hf-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>

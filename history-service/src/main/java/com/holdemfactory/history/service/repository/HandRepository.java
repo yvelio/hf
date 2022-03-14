@@ -1,4 +1,4 @@
-package com.yvelio.hf.history.service.repository;
+package com.holdemfactory.history.service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

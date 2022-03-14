@@ -1,4 +1,4 @@
-package com.yvelio.hf.history.service.repository.tests;
+package com.holdemfactory.history.service.repository.tests;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import com.yvelio.hf.history.service.enums.PokerSite;
-import com.yvelio.hf.history.service.repository.Hand;
-import com.yvelio.hf.history.service.repository.Hero;
+import com.holdemfactory.history.service.enums.PokerSite;
+import com.holdemfactory.history.service.repository.Hand;
+import com.holdemfactory.history.service.repository.Hero;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;

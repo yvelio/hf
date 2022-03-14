@@ -1,4 +1,4 @@
-package com.yvelio.hf.history.service.repository;
+package com.holdemfactory.history.service.repository;
 
 import java.util.List;
 
