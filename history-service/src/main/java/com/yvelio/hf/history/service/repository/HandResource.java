@@ -1,4 +1,4 @@
-package com.yvelio.hands.repository;
+package com.yvelio.hf.history.service.repository;
 
 import java.util.List;
 

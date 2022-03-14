@@ -1,4 +1,4 @@
-package com.yvelio.hands.repository;
+package com.yvelio.hf.history.service.repository;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.yvelio.enums.PokerSite;
+import com.yvelio.hf.history.service.enums.PokerSite;
 
 /**
  * User -> Heros == Player -> Hands (imported)

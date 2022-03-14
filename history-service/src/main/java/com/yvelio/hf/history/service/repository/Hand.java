@@ -1,4 +1,4 @@
-package com.yvelio.hands.repository;
+package com.yvelio.hf.history.service.repository;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.yvelio.enums.PokerSite;
+import com.yvelio.hf.history.service.enums.PokerSite;
 
 @Entity
 public class Hand {

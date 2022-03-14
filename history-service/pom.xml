@@ -6,12 +6,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.yvelio</groupId>
-		<artifactId>nlhe-parent</artifactId>
+		<groupId>com.yvelio.hf</groupId>
+		<artifactId>hf-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>nlhe-history-service</artifactId>
+	<artifactId>hf-history-service</artifactId>
 
 	<dependencies>
 	<!-- TODO: If you want to use it: find analog of @JacksonBackReference, not only @JsonbTransient -->
@@ -146,7 +146,7 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<!-- Automatically start PostgreSQL for integration testing - requires 
+						<!-- Automatically start PostgreSQL for integration testing - requires
 							Docker -->
 						<groupId>io.fabric8</groupId>
 						<artifactId>docker-maven-plugin</artifactId>
