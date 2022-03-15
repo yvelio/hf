@@ -1,21 +1,17 @@
 package com.holdemfactory.history.service.repository;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.holdemfactory.history.service.enums.PokerSite;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * User -> Heros == Player -> Hands (imported)
+ * 
  * 
  * @author anlev
  *
@@ -23,75 +19,53 @@ import com.holdemfactory.history.service.enums.PokerSite;
 @Entity
 public class Hero {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="hero_id")
 	private Long heroId;
-
-	private String playerName;
-	private PokerSite site;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hero", orphanRemoval = true)
-	@JsonManagedReference
-	private Set<Hand> hands  = new HashSet<>();
-
-	public Set<Hand> getHands() {
-		return hands;
-	}
-
-	public void setHands(Set<Hand> hands) {
-		this.hands = hands;
-	}
-
-
-	public void addToHands(Hand hand) {
-		this.hands.add(hand);
-		hand.setHero(this);
-	}
-
-
+	
+	@OneToOne
+	@JoinColumn(name = "history_id")
+	@JsonBackReference(value = "history-hero")
+	private History history;
+	
+	@OneToOne
+	@JoinColumn(name = "player_id")
+	@JsonBackReference(value = "player-hero")
+	private Player player;
+	
+	
+	
 	public Long getHeroId() {
 		return heroId;
 	}
-
+	
 	public void setHeroId(Long heroId) {
 		this.heroId = heroId;
 	}
-
-	public String getPlayerName() {
-		return playerName;
+	
+	public Player getPlayer() {
+		return player;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPlayer(Player player) {
+		this.player = player;
+		//object references an unsaved transient instance - save the transient instance before flushing : 
+		//com.holdemfactory.history.service.repository.Player.hero -> com.holdemfactory.history.service.repository.Hero
+		//this.player.setHero(this);
 	}
 
-	public PokerSite getSite() {
-		return site;
+	public History getHistory() {
+		return history;
 	}
-
-	public void setSite(PokerSite site) {
-		this.site = site;
-	}
-
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Hero hero = (Hero) o;
-		return playerName.equals(hero.getPlayerName()) && site.equals(hero.getSite());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(playerName, site);
+	
+	public void setHistory(History history) {
+		this.history = history;
+		this.history.setHero(this);
 	}
 
 	@Override
 	public String toString() {
-		return "Hero [id=" + (heroId != null ? heroId : null) + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
+		return "Hero [heroId=" + (heroId != null ? heroId : null) + ", player=" + (player != null ? player : null) + ", history=" + history + "]";
 	}
 	
-	
-
 }

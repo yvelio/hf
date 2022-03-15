@@ -1,34 +1,47 @@
 package com.holdemfactory.history.service.repository;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.holdemfactory.history.service.enums.PokerSite;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Hand {
     @Id
     @Column(name="hand_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long handId;
    
 	private Long handNumber;
 	private String tableName;
-	private PokerSite site;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hand", orphanRemoval = true)
+	@JsonManagedReference
+	private Set<Player> players  = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="hero_id")
+	@JoinColumn(name="history_id")
 	@JsonBackReference
-	private Hero hero;
-
+	private History history;
+	
+	public void addToPlayers(Player player) {
+		this.players.add(player);
+		player.setHand(this);
+	}
+	
 	public Long getHandId() {
 		return handId;
 	}
@@ -36,7 +49,6 @@ public class Hand {
 	public void setHandId(Long handId) {
 		this.handId = handId;
 	}
-
 
 	public Long getHandNumber() {
 		return handNumber;
@@ -54,22 +66,21 @@ public class Hand {
 		this.tableName = tableName;
 	}
 
-	public PokerSite getSite() {
-		return site;
+	public History getHistory() {
+		return history;
 	}
 
-	public void setSite(PokerSite site) {
-		this.site = site;
+	public void setHistory(History history) {
+		this.history = history;
 	}
 
-	public Hero getHero() {
-		return hero;
+	public Set<Player> getPlayers() {
+		return players;
 	}
 
-	public void setHero(Hero hero) {
-		this.hero = hero;
+	public void setPlayers(Set<Player> players) {
+		this.players = players;
 	}
-
 
 	@Override
 	public boolean equals(Object o) {
@@ -77,7 +88,7 @@ public class Hand {
 		if (o == null || getClass() != o.getClass()) return false;
 		Hand hand = (Hand) o;
 		return handNumber.equals(hand.getHandNumber()) &&
-				tableName.equals(hand.getTableName()) && site.equals(hand.getSite());
+				tableName.equals(hand.getTableName());
 	}
 	
 	@Override
@@ -85,11 +96,13 @@ public class Hand {
 		return Objects.hash(handNumber,tableName);
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Hand [handId=" + (handId != null ? handId : null) + ", handNumber=" + handNumber + ", tableName=" + tableName + ", site=" + site
-				+ ", hero=" + (hero != null ? hero : null) + "]";
+		return "Hand [handId=" + (handId != null ? handId : null)  + ", handNumber=" + handNumber + ", tableName=" + tableName + ", players="
+				+ players + ", history=" + history + "]";
 	}
-	
+
+
 	
 }
