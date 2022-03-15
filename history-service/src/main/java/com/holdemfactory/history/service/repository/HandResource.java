@@ -53,9 +53,12 @@ public class HandResource {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 		
+		System.out.println("################################");
 		System.out.println("About to add new hand");
 		System.out.println(hand);
-
+		System.out.println("################################");
+		
+		
 		handRepository.save(hand);
 		return Response.status(201).entity(hand).build();
 	}

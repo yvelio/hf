@@ -87,10 +87,10 @@ public class Hero {
 		return Objects.hash(playerName, site);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Hero [id=" + heroId + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
-//	}
+	@Override
+	public String toString() {
+		return "Hero [id=" + (heroId != null ? heroId : null) + ", playerName=" + playerName + ", site=" + site + ", hands=" + hands.size()+ "]";
+	}
 	
 	
 
