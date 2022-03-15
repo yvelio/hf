@@ -18,6 +18,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import com.holdemfactory.history.service.enums.PokerSite;
 import com.holdemfactory.history.service.repository.Hand;
+import com.holdemfactory.history.service.repository.Hero;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
@@ -41,11 +42,6 @@ public class HandResourceTest {
 				.body(
 						containsString("Chimaera V"),
 						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Clematis"),
-						containsString("Clematis"),
 						containsString("Clematis")
 						)
 				.extract()
@@ -53,7 +49,7 @@ public class HandResourceTest {
 
 		List<Hand> accounts = result.jsonPath().getList("$");
 		assertThat(accounts, not(empty()));
-		assertThat(accounts, hasSize(8));
+		assertThat(accounts, hasSize(3));
 	}
 
 	@Test
@@ -61,13 +57,13 @@ public class HandResourceTest {
 	void testGetHand() {
 		Hand hand =
 				given()
-				.when().get("/hands/{handNumber}", 223914288853L)
+				.when().get("/hands/{handNumber}", 223914234478L)
 				.then()
 				.statusCode(200)
 				.extract()
 				.as(Hand.class);
 
-		assertThat(hand.getHandNumber(), equalTo(223914288853L));
+		assertThat(hand.getHandNumber(), equalTo(223914234478L));
 		assertThat(hand.getTableName(), equalTo("Chimaera V"));
 		assertThat(hand.getSite(), equalTo(PokerSite.POKERSTARS));
 	}
@@ -80,10 +76,14 @@ public class HandResourceTest {
 		newHand.setTableName("Test table");
 		newHand.setSite(PokerSite.UNKNOWN);
 
+		Hero hero = new Hero();
+		hero.setHeroId(1L);
+		hero.addToHands(newHand);
+		
 		Hand returnedHand =
 				given()
 				.contentType(ContentType.JSON)
-				.body(newHand)
+				.body(newHand).log().all()
 				.when().post("/hands")
 				.then()
 				.statusCode(201)
@@ -93,7 +93,8 @@ public class HandResourceTest {
 		assertThat(returnedHand, notNullValue());
 		newHand.setHandId(returnedHand.getHandId());
 		assertThat(returnedHand, equalTo(newHand));
-
+		assertThat(returnedHand.getHero(), notNullValue());
+		
 		Response result =
 				given()
 				.when().get("/hands")
@@ -102,11 +103,6 @@ public class HandResourceTest {
 				.body(
 						containsString("Chimaera V"),
 						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Chimaera V"),
-						containsString("Clematis"),
-						containsString("Clematis"),
 						containsString("Clematis"),
 						containsString("Test table")
 						)
@@ -115,7 +111,7 @@ public class HandResourceTest {
 
 		List<Hand> accounts = result.jsonPath().getList("$");
 		assertThat(accounts, not(empty()));
-		assertThat(accounts, hasSize(9));
+		assertThat(accounts, hasSize(4));
 	}
 
 	//	@Test
