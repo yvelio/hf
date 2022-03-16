@@ -65,7 +65,8 @@ public class Hero {
 
 	@Override
 	public String toString() {
-		return "Hero [heroId=" + (heroId != null ? heroId : null) + ", player=" + (player != null ? player : null) + ", history=" + history + "]";
+		return "Hero [heroId=" + (heroId != null ? heroId : null) + ", player=" + (player != null ? player.getPlayerName() : null)
+				+ ", history=" + (history != null ? history.getFileName() : null) + "]";
 	}
 	
 }
