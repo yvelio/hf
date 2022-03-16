@@ -51,7 +51,12 @@ public class HeroResource {
 			throw new WebApplicationException("Id was invalidly set on request.", 400);
 		}
 		
-		heroRepository.save(hero);
+		System.out.println("About to save new hero: "+hero);
+		Hero heroSaved = heroRepository.save(hero);
+		System.out.println("----------------------");
+		System.out.println("	Saved  hero: "+heroSaved);
+		
+		
 		return Response.status(201).entity(hero).build();
 	}
 }
