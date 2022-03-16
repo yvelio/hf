@@ -107,6 +107,9 @@ public class HandResourceTest {
 		assertThat(returnedHand, equalTo(newHand));
 		assertThat(returnedHand.getPlayers(), hasSize(2));
 		
+		Player player = returnedHand.getPlayers().stream().filter(p -> p.getPlayerName().equals("yvel310")).findFirst().get();
+		assertThat(player.getHero(), notNullValue());
+		
 		Response result =
 				given()
 				.when().get("/hands")

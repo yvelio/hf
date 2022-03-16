@@ -89,7 +89,7 @@ public class HeroResourceTest {
 
 		assertThat(returnedHero, notNullValue());
 		assertThat(returnedHero, equalTo(newHero));
-//		assertThat(returnedHero.getHands(), hasSize(2));
+		assertThat(returnedHero.getPlayer(), notNullValue());
 
 		Response result =
 				given()

@@ -1,5 +1,6 @@
 package com.holdemfactory.history.service.repository;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class Player {
 	@JsonBackReference
 	private Hand hand;
 	
-	@OneToOne(mappedBy = "player", orphanRemoval = true)
+	@OneToOne(cascade=CascadeType.ALL, mappedBy = "player", orphanRemoval = true)
 	@JsonManagedReference(value = "player-hero")
 	private Hero hero;
 
@@ -77,7 +78,7 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [playerId=" + (playerId != null ? playerId : null) + ", playerName=" + playerName + ", site=" + site 
-				+ ", hero=" + (hero != null ? hero.getHeroId() : null)
+				+ ", hero=" + (hero != null ? hero.getHeroId()+"/"+hero.getPlayer().getPlayerName() : null)
 				+ "]";
 	}
 
