@@ -1,5 +1,7 @@
 package com.holdemfactory.history.service.repository;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -68,5 +70,23 @@ public class Hero {
 		return "Hero [heroId=" + (heroId != null ? heroId : null) + ", player=" + (player != null ? player.getPlayerName() : null)
 				+ ", history=" + (history != null ? history.getFileName() : null) + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(heroId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Hero other = (Hero) obj;
+		return Objects.equals(heroId, other.heroId);
+	}
+	
 	
 }
