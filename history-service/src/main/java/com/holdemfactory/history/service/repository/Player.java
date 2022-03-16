@@ -77,7 +77,7 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [playerId=" + (playerId != null ? playerId : null) + ", playerName=" + playerName + ", site=" + site 
-				+ ", hero=" + (hero != null ? hero.getPlayer().getPlayerName() : null)
+				+ ", hero=" + (hero != null ? hero.getHeroId() : null)
 				+ "]";
 	}
 
