@@ -61,7 +61,8 @@ public class HeroResourceTest {
 				.extract()
 				.as(Hero.class);
 
-		assertThat(hero.getPlayer().getPlayerName(), equalTo("yvel310"));
+		//BackReference gives no value
+		//assertThat(hero.getPlayer(), notNullValue());
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class HeroResourceTest {
 		makkrik.setPlayerName("makkrik");
 
 		Hero newHero = new Hero();
-		makkrik.setHero(newHero);
+		newHero.setPlayer(makkrik);
 		
 		Hero returnedHero =
 				given()
@@ -89,7 +90,7 @@ public class HeroResourceTest {
 
 		assertThat(returnedHero, notNullValue());
 		assertThat(returnedHero, equalTo(newHero));
-		assertThat(returnedHero.getPlayer(), notNullValue());
+//		assertThat(returnedHero.getPlayer(), notNullValue());
 
 		Response result =
 				given()

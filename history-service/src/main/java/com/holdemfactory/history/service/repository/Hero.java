@@ -51,8 +51,6 @@ public class Hero {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-		//object references an unsaved transient instance - save the transient instance before flushing : 
-		//com.holdemfactory.history.service.repository.Player.hero -> com.holdemfactory.history.service.repository.Hero
 		this.player.setHero(this);
 	}
 
