@@ -30,7 +30,7 @@ public class Player {
 	@JsonBackReference
 	private Hand hand;
 
-	@OneToOne(cascade = CascadeType.MERGE, mappedBy = "player")
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "player")
 	@JsonManagedReference(value = "player-hero")
 	private Hero hero;
 
