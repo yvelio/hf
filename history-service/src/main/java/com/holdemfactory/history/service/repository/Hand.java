@@ -33,7 +33,7 @@ public class Hand {
 	@JsonManagedReference
 	private Set<Player> players  = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "hand", orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "hand", orphanRemoval = true)
 	@JsonManagedReference(value="hand-hero")
 	private Hero hero;
 
