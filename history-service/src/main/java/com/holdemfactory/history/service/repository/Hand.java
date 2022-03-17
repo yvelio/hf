@@ -29,11 +29,11 @@ public class Hand {
 	private Long handNumber;
 	private String tableName;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hand", orphanRemoval = true)
+	@OneToMany(mappedBy = "hand", orphanRemoval = true)
 	@JsonManagedReference
 	private Set<Player> players  = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "hand")
+	@OneToOne(mappedBy = "hand")
 	@JsonManagedReference(value="hand-hero")
 	private Hero hero;
 
