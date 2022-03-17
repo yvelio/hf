@@ -30,7 +30,7 @@ public class Player {
 	@JsonBackReference
 	private Hand hand;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "player")
+	@OneToOne(mappedBy = "player")
 	@JsonManagedReference(value = "player-hero")
 	private Hero hero;
 
