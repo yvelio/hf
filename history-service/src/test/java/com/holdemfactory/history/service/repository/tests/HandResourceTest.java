@@ -48,9 +48,9 @@ public class HandResourceTest {
 				.extract()
 				.response();
 
-		List<Hand> accounts = result.jsonPath().getList("$");
-		assertThat(accounts, not(empty()));
-		assertThat(accounts, hasSize(3));
+		List<Hand> hands = result.jsonPath().getList("$");
+		assertThat(hands, not(empty()));
+		assertThat(hands, hasSize(3));
 	}
 
 	@Test
@@ -66,7 +66,10 @@ public class HandResourceTest {
 
 		assertThat(hand.getHandNumber(), equalTo(223914234478L));
 		assertThat(hand.getTableName(), equalTo("Chimaera V"));
+		
 		assertThat(hand.getPlayers(), hasSize(4));
+		assertThat(hand.getHero(), notNullValue());
+		
 		Player yvel310 = hand.getPlayers().stream().filter(p -> p.getPlayerName().equals("yvel310")).findFirst().get();
 		assertThat(yvel310.getHero(), notNullValue()); 
 	}
@@ -90,7 +93,7 @@ public class HandResourceTest {
 
 		Hero hero = new Hero();
 		hero.setPlayer(newPlayer1);
-	
+		hero.setHand(newHand);
 		
 		Hand returnedHand =
 				given()
@@ -104,8 +107,10 @@ public class HandResourceTest {
 
 		assertThat(returnedHand, notNullValue());
 		newHand.setHandId(returnedHand.getHandId());
+		
 		assertThat(returnedHand, equalTo(newHand));
 		assertThat(returnedHand.getPlayers(), hasSize(2));
+		assertThat(returnedHand.getHero(), notNullValue());
 		
 		Player player = returnedHand.getPlayers().stream().filter(p -> p.getPlayerName().equals("yvel310")).findFirst().get();
 		assertThat(player.getHero(), notNullValue());

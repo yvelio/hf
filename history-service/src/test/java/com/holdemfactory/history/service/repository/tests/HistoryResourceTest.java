@@ -66,7 +66,6 @@ public class HistoryResourceTest {
 
 		assertThat(history.getFileName(), equalTo("HH20210217 Chimaera V - $0.01-$0.02 - USD No Limit Holdem.txt"));		
 		assertThat(history.getHands(), hasSize(2));
-		assertThat(history.getHero(), notNullValue());
 	}
 
 	@Test
@@ -85,9 +84,14 @@ public class HistoryResourceTest {
 		newPlayer.setSite(PokerSite.POKERSTARS);
 		newHand.addToPlayers(newPlayer);
 		
-		Hero hero = new Hero();
-		hero.setHistory(newHistory);
-		hero.setPlayer(newPlayer);
+		Hero newHero = new Hero();
+		newHero.setHand(newHand);
+		newHero.setPlayer(newPlayer);
+		
+		Player newPlayer2 = new Player();
+		newPlayer2.setPlayerName("makkrik");
+		newPlayer2.setSite(PokerSite.POKERSTARS);
+		newHand.addToPlayers(newPlayer2);
 	
 		
 		History returnedHistory =
@@ -101,13 +105,14 @@ public class HistoryResourceTest {
 				.as(History.class);
 		
 		newHistory.setHistoryId(returnedHistory.getHistoryId());
-//		newHistory.getHands().iterator().next().setHandId(returnedHistory.getHands().iterator().next().getHandId());
-		
+
 		assertThat(returnedHistory, notNullValue());
 
 		assertThat(returnedHistory, equalTo(newHistory));
-		assertThat(returnedHistory.getHero(), notNullValue());
 		assertThat(returnedHistory.getHands(), hasSize(1));
+		
+		Hand returnedHand = returnedHistory.getHands().iterator().next();
+		assertThat(returnedHand.getHero(), notNullValue());
 		
 		Response result =
 				given()

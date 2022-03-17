@@ -26,16 +26,14 @@ public class Hero {
 	private Long heroId;
 	
 	@OneToOne
-	@JoinColumn(name = "history_id")
-	@JsonBackReference(value = "history-hero")
-	private History history;
+	@JoinColumn(name = "hand_id")
+	@JsonBackReference(value = "hand-hero")
+	private Hand hand;
 	
 	@OneToOne
 	@JoinColumn(name = "player_id")
 	@JsonBackReference(value = "player-hero")
 	private Player player;
-	
-	
 	
 	public Long getHeroId() {
 		return heroId;
@@ -54,19 +52,19 @@ public class Hero {
 		this.player.setHero(this);
 	}
 
-	public History getHistory() {
-		return history;
+	public Hand getHand() {
+		return hand;
 	}
-	
-	public void setHistory(History history) {
-		this.history = history;
-		this.history.setHero(this);
+
+	public void setHand(Hand hand) {
+		this.hand = hand;
+		this.hand.setHero(this);
 	}
 
 	@Override
 	public String toString() {
 		return "Hero [heroId=" + (heroId != null ? heroId : null) + ", player=" + (player != null ? player.getPlayerName() : null)
-				+ ", history=" + (history != null ? history.getFileName() : null) + "]";
+				+ ", hand=" + (hand != null ? hand.getHandId() : null) + "]";
 	}
 
 	@Override

@@ -17,19 +17,19 @@ import com.holdemfactory.history.service.enums.PokerSite;
 
 @Entity
 public class Player {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="player_id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="player_id")
 	private Long playerId;
-    
-    private String playerName;
+
+	private String playerName;
 	private PokerSite site;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="hand_id")
 	@JsonBackReference
 	private Hand hand;
-	
+
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "player", orphanRemoval = true)
 	@JsonManagedReference(value = "player-hero")
 	private Hero hero;
@@ -78,8 +78,7 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [playerId=" + (playerId != null ? playerId : null) + ", playerName=" + playerName + ", site=" + site 
-				+ ", hero=" + (hero != null ? hero.getHeroId()+"/"+hero.getPlayer().getPlayerName() : null)
-				+ "]";
+				+ ", hero=" + (hero != null ? hero.getHeroId()+"/"+hero.getPlayer().getPlayerName() : null) + "]";
 	}
 
 }

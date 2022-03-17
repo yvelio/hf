@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,6 +33,10 @@ public class Hand {
 	@JsonManagedReference
 	private Set<Player> players  = new HashSet<>();
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "hand", orphanRemoval = true)
+	@JsonManagedReference(value="hand-hero")
+	private Hero hero;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="history_id")
 	@JsonBackReference
@@ -82,6 +87,14 @@ public class Hand {
 		this.players = players;
 	}
 
+	public Hero getHero() {
+		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -100,9 +113,6 @@ public class Hand {
 	@Override
 	public String toString() {
 		return "Hand [handId=" + (handId != null ? handId : null)  + ", handNumber=" + handNumber + ", tableName=" + tableName + ", players="
-				+ players + ", history=" + history + "]";
+				+ players + ", hero=" + hero + ", history=" + history + "]";
 	}
-
-
-	
 }

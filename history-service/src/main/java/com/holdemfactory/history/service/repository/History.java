@@ -11,20 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
- * Represents a log file from hero's local directory.
- * 
- * Users/anlev/pfad/to/yvel310/HH20201111 Clematis - $0.01-$0.02 - USD No Limit Hold'em.txt
- * 
- * Users/anlev/pfad/to/yvel310/HH20210217 Chimaera V - $0.01-$0.02 - USD No Limit Hold'em.txt
- * ...
- * 
- * 
- * Use POST /histories/1/hands to createHand()
  * 
  * @author anlev
  *
@@ -43,10 +33,6 @@ public class History {
 	@JsonManagedReference
 	private Set<Hand> hands = new HashSet<>();
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "history", orphanRemoval = true)
-	@JsonManagedReference(value="history-hero")
-	private Hero hero;
-
 	public void addToHands(Hand hand) {
 		this.hands.add(hand);
 		hand.setHistory(this);
@@ -67,15 +53,7 @@ public class History {
 	public void setHands(Set<Hand> hands) {
 		this.hands = hands;
 	}
-
-	public Hero getHero() {
-		return hero;
-	}
-
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-
+	
 	public String getFileName() {
 		return fileName;
 	}
@@ -84,7 +62,6 @@ public class History {
 		this.fileName = fileName;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(fileName, historyId);
@@ -104,9 +81,8 @@ public class History {
 
 	@Override
 	public String toString() {
-		return "History [historyId=" + (historyId != null ? historyId : null) + ", fileName=" + fileName + ", hands=" + hands + ", hero=" + hero
+		return "History [historyId=" + (historyId != null ? historyId : null) + ", fileName=" + fileName + ", hands=" + hands
 				+ "]";
 	}
-
 
 }

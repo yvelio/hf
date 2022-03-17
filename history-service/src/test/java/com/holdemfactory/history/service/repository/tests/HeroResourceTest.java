@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
@@ -47,7 +48,7 @@ public class HeroResourceTest {
 
 		List<Hand> herros = result.jsonPath().getList("$");
 		assertThat(herros, not(empty()));
-		assertThat(herros, hasSize(2));
+		assertThat(herros, hasSize(3));
 	}
 
 	@Test
@@ -62,7 +63,7 @@ public class HeroResourceTest {
 				.as(Hero.class);
 
 		//BackReference gives no value
-		//assertThat(hero.getPlayer(), notNullValue());
+		assertThat(hero.getHeroId(), equalTo(1L));
 	}
 
 	@Test
@@ -90,7 +91,7 @@ public class HeroResourceTest {
 
 		assertThat(returnedHero, notNullValue());
 		assertThat(returnedHero, equalTo(newHero));
-//		assertThat(returnedHero.getPlayer(), notNullValue());
+		assertThat(returnedHero.getPlayer(), nullValue());
 
 		Response result =
 				given()
@@ -107,6 +108,6 @@ public class HeroResourceTest {
 
 		List<Hero> heros = result.jsonPath().getList("$");
 		assertThat(heros, not(empty()));
-		assertThat(heros, hasSize(3));
+		assertThat(heros, hasSize(4));
 	}
 }
