@@ -25,7 +25,8 @@
 	</properties>
 
 	<modules>
-		<module>history-service</module>
+		<module>history-server</module>
+		<module>history-client</module>
 	</modules>
 
 	<dependencyManagement>
