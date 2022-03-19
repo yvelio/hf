@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -36,7 +38,7 @@ import com.holdemfactory.history.client.domain.History;
  * @author anlev
  *
  */
-//@Path("/transactions")
+@Path("/diffs")
 //@Produces(MediaType.APPLICATION_JSON)
 //@Consumes(MediaType.APPLICATION_JSON)
 public class DiffEntryResource {
@@ -47,10 +49,10 @@ public class DiffEntryResource {
 	@ConfigProperty(name = "history.service", defaultValue = "http://52.58.213.253:30540")
 	String historyServiceUrl;
 
-	//	@POST
+	@POST
 	//	@Path("/{acctNumber}")
 	//	public Map<String, List<String>> newTransaction(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
-	public Map<String, List<String>> newTransaction(History history) {
+	public Map<String, List<String>> newDiffEntry(History history) {
 		try {
 			return historyService.createHistory(history);
 		} catch (Throwable t) {
@@ -60,7 +62,7 @@ public class DiffEntryResource {
 			return response;
 		}
 	}
-	//
+
 	//	@POST
 	//	@Path("/async/{acctNumber}")
 	//	public CompletionStage<Map<String, List<String>>> newTransactionAsync(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
