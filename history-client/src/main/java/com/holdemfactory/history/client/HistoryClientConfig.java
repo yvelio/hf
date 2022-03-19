@@ -11,7 +11,7 @@ import org.springframework.integration.file.FileWritingMessageHandler;
 
 @Configuration
 public class HistoryClientConfig {
-//	@Autowired
+	@Autowired
 	private DiffMessageTransformer diffMessageTransformer = new DiffMessageTransformer();
 	
 	@Bean
