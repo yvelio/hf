@@ -29,7 +29,7 @@ public class HistoryResource {
 	
 
 	@GetMapping("/{historyId}") 
-	public History getHero(@PathVariable("historyId") Long historyId) {
+	public History getHistory(@PathVariable("historyId") Long historyId) {
 		//TODO: Handle no history case 
 		History history = historyRepository.findById(historyId).get();
 

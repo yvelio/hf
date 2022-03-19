@@ -11,6 +11,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
+	<groupId>com.holdemfactory.history.server</groupId>
 	<artifactId>history-server</artifactId>
 
 	<dependencies>
