@@ -20,7 +20,6 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.springframework.integration.endpoint.AbstractMessageSource;
-import org.springframework.integration.support.AbstractIntegrationMessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
