@@ -53,14 +53,19 @@ public class DiffEntryResource {
 	String historyServiceUrl;
 
 	@POST
-	//	@Path("/{acctNumber}")
-	//	public Map<String, List<String>> newTransaction(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
-	public Map<String, List<String>> newDiffEntry(History history) {
+	public Map<String, List<String>> start(){
 		////////////////////////////////////////////////////////
 		HistoryClientConfig config = new HistoryClientConfig();
 		config.fromDiffToMessage();
 		///////////////////////////////////////////////////////
-		
+		Map<String, List<String>> response = new HashMap<>();
+		return response;
+	}
+	
+	@POST
+	//	@Path("/{acctNumber}")
+	//	public Map<String, List<String>> newTransaction(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
+	public Map<String, List<String>> newDiffEntry(History history) {
 		try {
 			return historyService.createHistory(history);
 		} catch (Throwable t) {
