@@ -19,12 +19,12 @@ public class HistoryClientConfig {
 		return IntegrationFlows.from(repositoryReader(), 
 				sourcePollingChannelAdapterSpec -> sourcePollingChannelAdapterSpec.poller(Pollers.fixedDelay(500)))
 				.transform(diffMessageTransformer, "toString")
-				.handle(HistoryService.class, "createHistory")
+				.handle(DiffEntryResource.class, "newDiffEntry")
 				.get();
 	}
 
 	private DiffReadingMessageSource repositoryReader() {
-		DiffReadingMessageSource source = new DiffReadingMessageSource(new File("/opt/hh/yvel310"));
+		DiffReadingMessageSource source = new DiffReadingMessageSource(new File("/home/ec2-user/hh/yvel310"));
 		return source;
 	}
 }
