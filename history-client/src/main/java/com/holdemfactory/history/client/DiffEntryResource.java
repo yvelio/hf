@@ -56,6 +56,11 @@ public class DiffEntryResource {
 	//	@Path("/{acctNumber}")
 	//	public Map<String, List<String>> newTransaction(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
 	public Map<String, List<String>> newDiffEntry(History history) {
+		////////////////////////////////////////////////////////
+		HistoryClientConfig config = new HistoryClientConfig();
+		config.fromDiffToMessage();
+		///////////////////////////////////////////////////////
+		
 		try {
 			return historyService.createHistory(history);
 		} catch (Throwable t) {
