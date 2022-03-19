@@ -30,7 +30,7 @@ public class HistoryClientConfig {
 	
 
 	private FileWritingMessageHandler fileWriter() {
-		FileWritingMessageHandler handler = new FileWritingMessageHandler(new File("/Users/anlev/hh/temp"));
+		FileWritingMessageHandler handler = new FileWritingMessageHandler(new File("/home/ec2-user/hh/temp"));
 		handler.setExpectReply(false);
 		
 		return handler;
