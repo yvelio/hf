@@ -12,7 +12,7 @@ import org.springframework.integration.dsl.Pollers;
 @Configuration
 public class HistoryClientConfig {
 	@Autowired
-	private DiffMessageTransformer diffMessageTransformer;
+	private DiffMessageTransformer diffMessageTransformer = new DiffMessageTransformer();
 	
 	@Bean
 	public IntegrationFlow fromDiffToMessage() {
