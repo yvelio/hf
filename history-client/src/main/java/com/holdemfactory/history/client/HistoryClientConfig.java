@@ -3,17 +3,18 @@ package com.holdemfactory.history.client;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileWritingMessageHandler;
 
-@Configuration
+//@Configuration
+@ConfigurationProperties
 public class HistoryClientConfig {
 	@Autowired
-	private DiffMessageTransformer diffMessageTransformer = new DiffMessageTransformer();
+	private DiffMessageTransformer diffMessageTransformer;
 	
 	@Bean
 	public IntegrationFlow fromDiffToMessage() {

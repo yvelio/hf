@@ -52,20 +52,18 @@ public class DiffEntryResource {
 	@ConfigProperty(name = "history.service", defaultValue = "http://52.58.213.253:30540")
 	String historyServiceUrl;
 
-	@POST
-	@Path("/start")
-	public Map<String, List<String>> start(){
-		////////////////////////////////////////////////////////
-		HistoryClientConfig config = new HistoryClientConfig();
-		config.fromDiffToMessage();
-		///////////////////////////////////////////////////////
-		Map<String, List<String>> response = new HashMap<>();
-		return response;
-	}
+//	@POST
+//	@Path("/start")
+//	public Map<String, List<String>> start(){
+//		////////////////////////////////////////////////////////
+//		HistoryClientConfig config = new HistoryClientConfig();
+//		config.fromDiffToMessage();
+//		///////////////////////////////////////////////////////
+//		Map<String, List<String>> response = new HashMap<>();
+//		return response;
+//	}
 	
 	@POST
-	//	@Path("/{acctNumber}")
-	//	public Map<String, List<String>> newTransaction(@PathParam("acctNumber") Long accountNumber, BigDecimal amount) {
 	public Map<String, List<String>> newDiffEntry(History history) {
 		try {
 			return historyService.createHistory(history);
