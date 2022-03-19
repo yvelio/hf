@@ -51,6 +51,9 @@ public class DiffReadingMessageSource extends AbstractMessageSource<DiffEntry> {
 			e.printStackTrace();
 			try {
 				git = Git.init().setDirectory(directory).call();
+				
+				System.out.println("Git new status: "+git.status());
+				
 			} catch (IllegalStateException | GitAPIException e1) {
 				e1.printStackTrace();
 			}
@@ -63,7 +66,7 @@ public class DiffReadingMessageSource extends AbstractMessageSource<DiffEntry> {
 	 * but the returned value may also be a {@link Message} instance whose payload is of type T;
 	 */
 	@Override
-	protected AbstractIntegrationMessageBuilder<String> doReceive() {
+	protected Object doReceive() {
 		Status status = null;
 		try {
 			status = git.status().call();

@@ -11,7 +11,7 @@ import org.springframework.integration.dsl.Pollers;
 
 @Configuration
 public class HistoryClientConfig {
-	@Autowired
+//	@Autowired
 	private DiffMessageTransformer diffMessageTransformer = new DiffMessageTransformer();
 	
 	@Bean
@@ -19,7 +19,7 @@ public class HistoryClientConfig {
 		return IntegrationFlows.from(repositoryReader(), 
 				sourcePollingChannelAdapterSpec -> sourcePollingChannelAdapterSpec.poller(Pollers.fixedDelay(500)))
 				.transform(diffMessageTransformer, "toString")
-				.handle(DiffEntryResource.class, "newDiffEntry")
+				.handle(MyHelloService.class, "sayHello")
 				.get();
 	}
 
