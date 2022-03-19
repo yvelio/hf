@@ -53,6 +53,7 @@ public class DiffEntryResource {
 	String historyServiceUrl;
 
 	@POST
+	@Path("/start")
 	public Map<String, List<String>> start(){
 		////////////////////////////////////////////////////////
 		HistoryClientConfig config = new HistoryClientConfig();
