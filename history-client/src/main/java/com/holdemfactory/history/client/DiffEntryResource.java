@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -63,7 +64,15 @@ public class DiffEntryResource {
     @Qualifier("capitalizeFunction")
     StringFunction capitalizerStringFunction;
 
-
+    @Inject
+    CounterBean counter;
+    
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "count: " + counter.get();
+    }
+    
 	@POST
 	@Path("/start")
 	public Map<String, List<String>> start(){
