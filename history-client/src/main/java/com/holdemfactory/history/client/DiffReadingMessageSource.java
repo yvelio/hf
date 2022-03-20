@@ -69,7 +69,7 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 	 * but the returned value may also be a {@link Message} instance whose payload is of type T;
 	 */
 	//	@Override
-	@Scheduled(fixedRate = 1000)  
+//	@Scheduled(fixedRate = 1000)  
 	protected void doReceive() {
 		Status status = null;
 		try {
