@@ -64,14 +64,15 @@ public class DiffEntryResource {
     @Qualifier("capitalizeFunction")
     StringFunction capitalizerStringFunction;
 
-    @Inject
-    CounterBean counter;
-    
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "count: " + counter.get();
-    }
+//    @Inject
+////    CounterBean counter
+//    DiffReadingMessageSource diffPoller;
+//    
+//    @GET
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public String hello() {
+//        return "count: " + diffPoller.get();
+//    }
     
 	@POST
 	@Path("/start")

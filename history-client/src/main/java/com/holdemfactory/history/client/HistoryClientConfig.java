@@ -34,13 +34,5 @@ public class HistoryClientConfig {
 //		handler.setExpectReply(false);
 //		return handler;
 //	}
-//
-//	public DiffMessageTransformer getDiffMessageTransformer() {
-//		return diffMessageTransformer;
-//	}
-//
-//	public void setDiffMessageTransformer(DiffMessageTransformer diffMessageTransformer) {
-//		this.diffMessageTransformer = diffMessageTransformer;
-//	}
 
 }
