@@ -10,7 +10,7 @@ public class HistoryClientConfig {
 
 	@Bean(name = "capitalizeFunction")
 	public StringFunction capitalizer() {
-		System.out.println("About to call com.holdemfactory.history.client.HistoryClientConfig.capitalizer()");
+		System.out.println("About to call com.holdemfactory.history.client.HistoryClientConfig.capitalizer()");	
 		return String::toUpperCase;
 	}
 
