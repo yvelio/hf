@@ -34,7 +34,8 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 	private File directory;
 	private Git git;
 	private FileSystem fs = FileSystems.getDefault();
-
+	
+	public DiffReadingMessageSource() {}
 	
 	public DiffReadingMessageSource(File directory) {
 		this.directory = directory;
