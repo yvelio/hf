@@ -3,19 +3,24 @@ package com.holdemfactory.history.client;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.file.FileWritingMessageHandler;
 
-//@Configuration
-@ConfigurationProperties
+@Configuration
 public class HistoryClientConfig {
 	@Autowired
 	private DiffMessageTransformer diffMessageTransformer;
-	
+
+	@Bean(name = "capitalizeFunction")
+	public StringFunction capitalizer() {
+		return String::toUpperCase;
+	}
+
 	@Bean
 	public IntegrationFlow fromDiffToMessage() {
 		return IntegrationFlows.from(repositoryReader(), 
@@ -29,12 +34,11 @@ public class HistoryClientConfig {
 		DiffReadingMessageSource source = new DiffReadingMessageSource(new File("/home/ec2-user/hh/yvel310"));
 		return source;
 	}
-	
+
 
 	private FileWritingMessageHandler fileWriter() {
 		FileWritingMessageHandler handler = new FileWritingMessageHandler(new File("/home/ec2-user/hh/temp"));
 		handler.setExpectReply(false);
-		
 		return handler;
 	}
 
@@ -45,5 +49,5 @@ public class HistoryClientConfig {
 	public void setDiffMessageTransformer(DiffMessageTransformer diffMessageTransformer) {
 		this.diffMessageTransformer = diffMessageTransformer;
 	}
-	
+
 }

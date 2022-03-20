@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.holdemfactory.history.client.domain.History;
 
@@ -52,17 +53,19 @@ public class DiffEntryResource {
 	@ConfigProperty(name = "history.service", defaultValue = "http://52.58.213.253:30540")
 	String historyServiceUrl;
 
-//	@POST
-//	@Path("/start")
-//	public Map<String, List<String>> start(){
-//		////////////////////////////////////////////////////////
-//		HistoryClientConfig config = new HistoryClientConfig();
-//		config.fromDiffToMessage();
-//		///////////////////////////////////////////////////////
-//		Map<String, List<String>> response = new HashMap<>();
-//		return response;
-//	}
-	
+	@Autowired
+	HistoryClientConfig config;
+
+	@POST
+	@Path("/start")
+	public Map<String, List<String>> start(){
+		//////////////////////////////////////////////////////////
+		config.fromDiffToMessage();
+		/////////////////////////////////////////////////////////
+		Map<String, List<String>> response = new HashMap<>();
+		return response;
+	}
+
 	@POST
 	public Map<String, List<String>> newDiffEntry(History history) {
 		try {
