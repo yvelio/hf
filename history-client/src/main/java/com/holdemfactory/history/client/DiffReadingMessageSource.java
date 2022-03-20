@@ -74,6 +74,9 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 		Status status = null;
 		try {
 			status = git.status().call();
+			System.out.println(git.getRepository().getDirectory().toPath().toAbsolutePath());
+			System.out.println("Got new status: isClean()? "+status.isClean());
+			
 		} catch (NoWorkTreeException | GitAPIException e) {
 			e.printStackTrace();
 		}
