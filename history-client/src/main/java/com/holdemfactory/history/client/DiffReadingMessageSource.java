@@ -34,12 +34,12 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 	private File directory;
 	private Git git;
 	private FileSystem fs = FileSystems.getDefault();
-	
+
 	public DiffReadingMessageSource() {}
-	
+
 	public DiffReadingMessageSource(File directory) {
 		this.directory = directory;
-		
+
 		try {
 			//If directory == null, it adds src/main/java/io/yvel/gpp/patl as directory
 			git = Git.open(directory);
@@ -47,9 +47,9 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 			e.printStackTrace();
 			try {
 				git = Git.init().setDirectory(directory).call();
-				
+
 				System.out.println("Git new status: "+git.status());
-				
+
 			} catch (IllegalStateException | GitAPIException e1) {
 				e1.printStackTrace();
 			}
@@ -61,9 +61,9 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 	 * Typically the returned value will be the {@code payload} of type T, 
 	 * but the returned value may also be a {@link Message} instance whose payload is of type T;
 	 */
-//	@Override
-    @Scheduled(fixedRate = 1000)  
-	protected String doReceive() {
+	//	@Override
+	@Scheduled(fixedRate = 1000)  
+	protected void doReceive() {
 		Status status = null;
 		try {
 			status = git.status().call();
@@ -85,7 +85,7 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 
 						CommitCommand commit = git.commit();
 						commit.setMessage(newFileName+" to commit").call();
-						
+
 						String content = null;
 						try {
 							content = new String(Files.readAllBytes(Paths.get(directory.getAbsolutePath()+fs.getSeparator() +newFileName)));
@@ -95,10 +95,10 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 						}
 						if (content != null && content.length() > 0) {
 							System.out.println("	New file was with content");
-//							System.out.println(content);
-//							System.out.println("######################################");
-//							return getMessageBuilderFactory().withPayload(content);
-							return content;
+							//							System.out.println(content);
+							//							System.out.println("######################################");
+							//							return getMessageBuilderFactory().withPayload(content);
+//							return content;
 						}
 						System.out.println("	continue to track");
 					} catch (GitAPIException e) {
@@ -111,14 +111,14 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 					System.out.println("	Added&Commit&Extracted new record from file: "+modifiedFile);
 
 					String diff = getDiffWithCommit(modifiedFile);
-//					return getMessageBuilderFactory().withPayload(diff);
-					return diff;
+					//					return getMessageBuilderFactory().withPayload(diff);
+					System.out.println(" with Diff's content: "+diff);
 				}
 			}	
 		} else {
 			System.out.println("No changes");
 		}
-		return null;
+//		return null;
 	}
 
 	private String getDiffWithCommit(String modifiedFile) {
@@ -134,7 +134,7 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 
 			git.add().addFilepattern(modifiedFile).call();
 			git.commit().setMessage("new commit for new record" ).call();
-			
+
 			return diffString;
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -146,11 +146,11 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 		return null;
 	}
 
-//	@Override
-//	public String getComponentType() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	//	@Override
+	//	public String getComponentType() {
+	//		// TODO Auto-generated method stub
+	//		return null;
+	//	}
 
 	public File getDirectory() {
 		return directory;
