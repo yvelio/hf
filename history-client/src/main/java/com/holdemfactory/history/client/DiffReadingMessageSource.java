@@ -35,11 +35,18 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 	private Git git;
 	private FileSystem fs = FileSystems.getDefault();
 
-	public DiffReadingMessageSource() {}
+	public DiffReadingMessageSource() {
+		this.directory = new File("/home/ec2-user/hh/yvel310");
+		openExistingOrInit(directory);
+	}
 
 	public DiffReadingMessageSource(File directory) {
 		this.directory = directory;
 
+		openExistingOrInit(directory);
+	}
+
+	private void openExistingOrInit(File directory) {
 		try {
 			//If directory == null, it adds src/main/java/io/yvel/gpp/patl as directory
 			git = Git.open(directory);
@@ -48,7 +55,7 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 			try {
 				git = Git.init().setDirectory(directory).call();
 
-				System.out.println("Git new status: "+git.status());
+				System.out.println("Git new status after error in open: "+git.status());
 
 			} catch (IllegalStateException | GitAPIException e1) {
 				e1.printStackTrace();
@@ -158,5 +165,21 @@ public class DiffReadingMessageSource /*extends AbstractMessageSource<DiffEntry>
 
 	public void setDirectory(File directory) {
 		this.directory = directory;
+	}
+
+	public Git getGit() {
+		return git;
+	}
+
+	public void setGit(Git git) {
+		this.git = git;
+	}
+
+	public FileSystem getFs() {
+		return fs;
+	}
+
+	public void setFs(FileSystem fs) {
+		this.fs = fs;
 	}
 }
