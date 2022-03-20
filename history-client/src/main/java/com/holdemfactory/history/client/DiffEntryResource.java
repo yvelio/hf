@@ -69,6 +69,8 @@ public class DiffEntryResource {
 	public Map<String, List<String>> start(){
 		//////////////////////////////////////////////////////////
 //		config.fromDiffToMessage();
+		System.out.println("About to call noopStringFunction in DiffEntryResource.start()"+capitalizerStringFunction.apply("Boo"));
+		
 		noopStringFunction.andThen(capitalizerStringFunction).apply("foo");
 		/////////////////////////////////////////////////////////
 		Map<String, List<String>> response = new HashMap<>();
