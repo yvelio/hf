@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.holdemfactory.history.client.domain.History;
 
@@ -53,14 +54,22 @@ public class DiffEntryResource {
 	@ConfigProperty(name = "history.service", defaultValue = "http://52.58.213.253:30540")
 	String historyServiceUrl;
 
-	@Autowired
-	HistoryClientConfig config;
+
+    @Autowired
+    @Qualifier("noopFunction")
+    StringFunction noopStringFunction;
+
+    @Autowired
+    @Qualifier("capitalizeFunction")
+    StringFunction capitalizerStringFunction;
+
 
 	@POST
 	@Path("/start")
 	public Map<String, List<String>> start(){
 		//////////////////////////////////////////////////////////
-		config.fromDiffToMessage();
+//		config.fromDiffToMessage();
+		noopStringFunction.andThen(capitalizerStringFunction).apply("foo");
 		/////////////////////////////////////////////////////////
 		Map<String, List<String>> response = new HashMap<>();
 		return response;
